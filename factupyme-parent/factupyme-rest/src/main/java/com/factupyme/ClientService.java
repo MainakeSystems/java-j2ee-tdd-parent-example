@@ -25,8 +25,12 @@ import javax.ws.rs.core.Response;
 @Path("/")
 public class ClientService {
     
-    @Inject
     private IClientLogic clientLogic;
+    
+    @Inject
+    public void setClientLogic(IClientLogic clientBusinnessLogic) {
+        this.clientLogic = clientBusinnessLogic;
+    }
         
     @GET
     @PermitAll
