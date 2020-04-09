@@ -1,41 +1,27 @@
-
 import com.factupyme.ClientDTO;
 import com.factupyme.ClientEJB;
 import com.factupyme.interfaces.IClientDAO;
 import java.sql.Connection;
 import java.sql.SQLException;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertTrue;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Ignore;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.ArgumentMatchers.isNull;
 import org.mockito.InjectMocks;
-import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.eq;
-import static org.mockito.Matchers.eq;
-import static org.mockito.Matchers.eq;
-import static org.mockito.Matchers.eq;
-import static org.mockito.Matchers.isNull;
-import static org.mockito.Matchers.isNull;
 import org.mockito.Mock;
-import static org.mockito.Mockito.when;
-import org.mockito.runners.MockitoJUnitRunner;
+import static org.mockito.Mockito.lenient;
+import org.mockito.junit.jupiter.MockitoExtension;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
 /**
  *
  * @author student
  */
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
 public class ClientEJBTest {
     
     @Mock
@@ -46,18 +32,18 @@ public class ClientEJBTest {
     
     private static ClientDAOTestHelper DAOHelper;
     
-    @BeforeClass
+    @BeforeAll
     public static void setUpClass() {
         DAOHelper = new ClientDAOTestHelper();
     }
     
-    @Before
+    @BeforeEach
     public void setUp() throws SQLException, Exception {
         ejb.setClientDAO(iClientDAO);
         this.initializeMocks();   
     }
     
-    @Ignore
+    @Disabled
     @Test
     public void searchClientNotFound() throws Exception {
         ClientDTO clientInstance = null;
@@ -98,17 +84,17 @@ public class ClientEJBTest {
     }
     
     private void initializeDAOMocks() throws Exception {
-        when(this.iClientDAO.getClientByAccountNumber(eq(DAOHelper.getClientFoundWithAccountC1().getAccountNumber()),
-                                                        any(Connection.class)))
+         lenient().when(this.iClientDAO.getClientByAccountNumber(eq(DAOHelper.getClientFoundWithAccountC1().getAccountNumber()), 
+                                                        (Connection) isNull()))
                 .thenReturn(DAOHelper.getClientFoundWithAccountC1());
         
-        when(this.iClientDAO.getClientByAccountNumber(eq(DAOHelper.getClientFoundWithAccountX9().getAccountNumber()),
-                                                        any(Connection.class)))
+        lenient().when(this.iClientDAO.getClientByAccountNumber(eq(DAOHelper.getClientFoundWithAccountX9().getAccountNumber()),
+                                                        (Connection) isNull()))
                 .thenReturn(DAOHelper.getClientFoundWithAccountX9());
         
-        when(this.iClientDAO.getClientByAccountNumber(isNull(String.class),
-                                                      any(Connection.class)))
-                .thenReturn(DAOHelper.getClientNotFound());         
+        lenient().when(this.iClientDAO.getClientByAccountNumber((String) isNull(),
+                                                      (Connection) isNull()))
+                .thenReturn(DAOHelper.getClientNotFound());
     }
     
 }

@@ -3,7 +3,7 @@ import com.factupyme.ClientDTO;
 
 /**
  *
- * @author tomi
+ * @author student
  */
 public class ClientEJBTestHelper {
     private String idAccountC1;

@@ -2,29 +2,23 @@
 import com.factupyme.ClientDTO;
 import com.factupyme.ClientService;
 import com.factupyme.IClientLogic;
-import static org.junit.Assert.assertTrue;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
 import org.mockito.InjectMocks;
-import static org.mockito.Matchers.eq;
 import org.mockito.Mock;
 import static org.mockito.Mockito.when;
 import javax.ws.rs.core.Response;
-import org.junit.runner.RunWith;
-import org.mockito.runners.MockitoJUnitRunner;
-
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import static org.mockito.ArgumentMatchers.eq;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 /**
  *
- * @author tomi
+ * @author student
  */
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
 public class ClientServiceTest {
     @Mock
     private IClientLogic iClientEJB;
@@ -34,12 +28,12 @@ public class ClientServiceTest {
     
     private static ClientEJBTestHelper serviceEJBHelper;
     
-    @BeforeClass
+    @BeforeAll
     public static void setUpClass() {
         serviceEJBHelper = new ClientEJBTestHelper();
     }
     
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         clientService.setClientLogic(iClientEJB);
         this.initializeMocks();   

@@ -5,17 +5,18 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import static org.junit.Assert.assertTrue;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import static org.mockito.ArgumentMatchers.eq;
 import org.mockito.InjectMocks;
-import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.eq;
+
 import org.mockito.Mock;
 import static org.mockito.Mockito.when;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
+
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -27,7 +28,7 @@ import org.mockito.runners.MockitoJUnitRunner;
  *
  * @author student
  */
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
 public class ClientDAOTest {
     
     @Mock
@@ -44,12 +45,12 @@ public class ClientDAOTest {
     
     private static ClientDAOTestHelper DAOHelper;
     
-    @BeforeClass
+    @BeforeAll
     public static void setUpClass() {
         DAOHelper = new ClientDAOTestHelper();
     }
     
-    @Before
+    @BeforeEach
     public void setUp() throws SQLException, Exception {
         //clientDAO.setClientDAO(connection);
         this.initializeMocks();   
